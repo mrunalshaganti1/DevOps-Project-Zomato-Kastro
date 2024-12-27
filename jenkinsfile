@@ -49,6 +49,15 @@ pipeline {
                 sh "trivy fs . > trivy.txt"
             }
         }
+        stage('Verify Docker Access') {
+            steps {
+                sh '''
+                docker version
+                docker info
+                docker ps
+                '''
+            }
+        }
         stage ("Build Docker Image") {
             steps {
                 sh "docker build -t zomato ."
